@@ -151,4 +151,28 @@ class JumpinBlockView(ctx : Context) : View(ctx ) {
             return this
         }
     }
+
+    data class JumpinBlock(var i : Int) {
+
+        private var root : JBNode = JBNode(0)
+        private var curr : JBNode = root
+        private var dir : Int = 1
+
+        fun draw(canvas : Canvas, paint : Paint) {
+            root.draw(canvas, paint)
+        }
+
+        fun update(cb : (Float) -> Unit) {
+            curr.update {
+                curr = curr.getNext(dir) {
+                    dir *= -1
+                }
+                cb(it)
+            }
+        }
+
+        fun startUpdating(cb : () -> Unit) {
+            curr.startUpdating(cb)
+        }
+    }
 }
