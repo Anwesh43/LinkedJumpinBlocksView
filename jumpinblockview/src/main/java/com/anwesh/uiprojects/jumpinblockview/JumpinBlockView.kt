@@ -25,8 +25,8 @@ fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse
 fun Float.divideScale(i : Int, n : Int) : Float = Math.min(n.inverse(), maxScale(i, n)) * n
 
 fun Canvas.drawJumpinBlock(size : Float, h : Float, scale : Float, paint : Paint) {
-    val deg : Double = (Math.PI / 180f) * scale
-    val y : Float = h * Math.sin(deg).toFloat()
+    val deg : Double = (Math.PI) * scale
+    val y : Float = -h * Math.sin(deg).toFloat()
     save()
     translate(0f, y)
     drawRect(RectF(-size, -size, size, size), paint)
@@ -43,7 +43,7 @@ fun Canvas.drawJBNode(i : Int, scale : Float, paint : Paint) {
     save()
     translate(gap * (i + 1), h - size)
     rotate(360f * sc)
-    drawJumpinBlock(size * sc, h / 2, scale.divideScale(0, 2), paint)
+    drawJumpinBlock(size * (1 - sc), h / 2, scale.divideScale(0, 2), paint)
     restore()
 }
 
