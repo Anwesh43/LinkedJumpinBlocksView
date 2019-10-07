@@ -38,10 +38,12 @@ fun Canvas.drawJBNode(i : Int, scale : Float, paint : Paint) {
     val h : Float = height.toFloat()
     val gap : Float = w / (nodes + 1)
     val size : Float = gap / sizeFactor
+    val sc : Float = scale.divideScale(1, 2)
     paint.color = foreColor
     save()
     translate(gap * (i + 1), h - size)
-    drawJumpinBlock(size, h / 2, scale, paint)
+    rotate(360f * sc)
+    drawJumpinBlock(size * sc, h / 2, scale.divideScale(0, 2), paint)
     restore()
 }
 
@@ -156,12 +158,11 @@ class JumpinBlockView(ctx : Context) : View(ctx ) {
 
     data class JumpinBlock(var i : Int) {
 
-        private var root : JBNode = JBNode(0)
-        private var curr : JBNode = root
+        private var curr : JBNode = JBNode(0)
         private var dir : Int = 1
 
         fun draw(canvas : Canvas, paint : Paint) {
-            root.draw(canvas, paint)
+            curr.draw(canvas, paint)
         }
 
         fun update(cb : (Float) -> Unit) {
@@ -207,7 +208,7 @@ class JumpinBlockView(ctx : Context) : View(ctx ) {
             val view : JumpinBlockView = JumpinBlockView(activity)
             activity.setContentView(view)
             return view
-            
+
         }
     }
 }
