@@ -200,4 +200,14 @@ class JumpinBlockView(ctx : Context) : View(ctx ) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : JumpinBlockView {
+            val view : JumpinBlockView = JumpinBlockView(activity)
+            activity.setContentView(view)
+            return view
+            
+        }
+    }
 }
